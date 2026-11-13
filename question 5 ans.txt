@@ -1,0 +1,48 @@
+mysql> use college_db;
+Database changed
+mysql> Drop Table enrollments;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> Truncate Table courses;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> select * from courses;
+Empty set (0.00 sec)
+
+mysql> desc courses;
++--------------+---------------+------+-----+---------+----------------+
+| Field        | Type          | Null | Key | Default | Extra          |
++--------------+---------------+------+-----+---------+----------------+
+| course_id    | int           | NO   | PRI | NULL    | auto_increment |
+| course_name  | varchar(100)  | NO   |     | NULL    |                |
+| course_code  | varchar(20)   | YES  | UNI | NULL    |                |
+| duration     | int           | YES  |     | NULL    |                |
+| fees         | decimal(10,2) | YES  |     | NULL    |                |
+| course_level | varchar(30)   | YES  |     | NULL    |                |
++--------------+---------------+------+-----+---------+----------------+
+6 rows in set (0.01 sec)
+
+mysql> INSERT INTO courses
+    -> (course_name, course_code, duration, fees, course_level)
+    -> VALUES
+    -> ('BCA', 'BCA101', 3, 45000, 'Undergraduate'),
+    -> ('BCom', 'BCOM101', 3, 35000, 'Undergraduate'),
+    -> ('MBA', 'MBA101', 2, 60000, 'Postgraduate');
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from courses;
++-----------+-------------+-------------+----------+----------+---------------+
+| course_id | course_name | course_code | duration | fees     | course_level  |
++-----------+-------------+-------------+----------+----------+---------------+
+|         1 | BCA         | BCA101      |        3 | 45000.00 | Undergraduate |
+|         2 | BCom        | BCOM101     |        3 | 35000.00 | Undergraduate |
+|         3 | MBA         | MBA101      |        2 | 60000.00 | Postgraduate  |
++-----------+-------------+-------------+----------+----------+---------------+
+3 rows in set (0.00 sec)
+
+mysql> drop Table courses;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from courses;
+ERROR 1146 (42S02): Table 'college_db.courses' doesn't exist

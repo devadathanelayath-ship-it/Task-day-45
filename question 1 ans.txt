@@ -1,0 +1,65 @@
+mysql> CREATE DATABASE college_db;
+Query OK, 1 row affected (0.07 sec)
+
+mysql> Use college_db;
+Database changed
+mysql> create Table students (student_id INT PRIMARY KEY AUTO_INCREMENT,student_name VARCHAR(50) NOT NULL,email VARCHAR(100) NOT NULL UNIQUE,age INT CHECK(age>=18),gender VARCHAR(20) DEFAULT 'Not Specified',course VARCHAR(50) NOT NULL,city VARCHAR(50) DEFAULT 'Not Provided');
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> INSERT INTO students
+    -> (student_name, email, age, gender, course, city)
+    -> VALUES
+    -> ('Arun', 'arun@gmail.com', 22, 'Male', 'BCA', 'Kochi'),
+    -> ('Anu', 'anu@gmail.com', 21, 'Female', 'BCom', 'Calicut'),
+    -> ('Rahul', 'rahul@gmail.com', 23, 'Male', 'BBA', 'Trivandrum'),
+    -> ('Meera', 'meera@gmail.com', 20, 'Female', 'BSc', 'Kannur'),
+    -> ('Vishnu', 'vishnu@gmail.com', 24, 'Male', 'BCA', 'Thrissur');
+Query OK, 5 rows affected (0.03 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from students;
++------------+--------------+------------------+------+--------+--------+------------+
+| student_id | student_name | email            | age  | gender | course | city       |
++------------+--------------+------------------+------+--------+--------+------------+
+|          1 | Arun         | arun@gmail.com   |   22 | Male   | BCA    | Kochi      |
+|          2 | Anu          | anu@gmail.com    |   21 | Female | BCom   | Calicut    |
+|          3 | Rahul        | rahul@gmail.com  |   23 | Male   | BBA    | Trivandrum |
+|          4 | Meera        | meera@gmail.com  |   20 | Female | BSc    | Kannur     |
+|          5 | Vishnu       | vishnu@gmail.com |   24 | Male   | BCA    | Thrissur   |
++------------+--------------+------------------+------+--------+--------+------------+
+5 rows in set (0.01 sec)
+
+mysql> INSERT INTO students
+    -> (student_id, student_name, email, age, course)
+    -> VALUES
+    -> (1, 'Kiran', 'kiran@gmail.com', 22, 'BCA');
+ERROR 1062 (23000): Duplicate entry '1' for key 'students.PRIMARY'
+mysql> INSERT INTO students
+    -> (student_name, email, age, course)
+    -> VALUES
+    -> (NULL, 'test@gmail.com', 22, 'BCA');
+ERROR 1048 (23000): Column 'student_name' cannot be null
+mysql> INSERT INTO students
+    -> (student_name, email, age, course)
+    -> VALUES
+    -> ('Kiran', 'arun@gmail.com', 22, 'BCA');
+ERROR 1062 (23000): Duplicate entry 'arun@gmail.com' for key 'students.email'
+mysql> ^C
+mysql> INSERT INTO students
+    -> (student_name, email, age, course)
+    -> VALUES
+    -> ('Sneha', 'sneha@gmail.com', 22, 'BCom');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from students;
++------------+--------------+------------------+------+---------------+--------+--------------+
+| student_id | student_name | email            | age  | gender        | course | city         |
++------------+--------------+------------------+------+---------------+--------+--------------+
+|          1 | Arun         | arun@gmail.com   |   22 | Male          | BCA    | Kochi        |
+|          2 | Anu          | anu@gmail.com    |   21 | Female        | BCom   | Calicut      |
+|          3 | Rahul        | rahul@gmail.com  |   23 | Male          | BBA    | Trivandrum   |
+|          4 | Meera        | meera@gmail.com  |   20 | Female        | BSc    | Kannur       |
+|          5 | Vishnu       | vishnu@gmail.com |   24 | Male          | BCA    | Thrissur     |
+|          7 | Sneha        | sneha@gmail.com  |   22 | Not Specified | BCom   | Not Provided |
++------------+--------------+------------------+------+---------------+--------+--------------+
+6 rows in set (0.00 sec)

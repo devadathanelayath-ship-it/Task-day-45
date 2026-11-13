@@ -1,0 +1,39 @@
+mysql> Create Table courses(course_id Int Primary key auto_increment,course_name varchar(100) NOT NULL,course_code varchar(20) UNIQUE,duration Int,fees Decimal(10,2),department Varchar(50) );
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> ALter Table courses Add course_level varchar(30);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> Alter Table courses Drop column department;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> Insert into courses (course_name,course_code,duration,fees,course_level)  Values ('Bachelor of Computer Applications','BCA101',3,45000,'Undergraduate'),('Bachelor of Commerce', 'BCOM101',3,35000,'Undergraduate'),('Bachelor of Business Administration','BBA101',3,40000,'Undergraduate'),('Master of Computer Applications','MCA101',2,60000,'Postgraduate'),('Master of Commerce','MCOM101',2,50000,'Postgraduate');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from courses;
++-----------+-------------------------------------+-------------+----------+----------+---------------+
+| course_id | course_name                         | course_code | duration | fees     | course_level  |
++-----------+-------------------------------------+-------------+----------+----------+---------------+
+|         1 | Bachelor of Computer Applications   | BCA101      |        3 | 45000.00 | Undergraduate |
+|         2 | Bachelor of Commerce                | BCOM101     |        3 | 35000.00 | Undergraduate |
+|         3 | Bachelor of Business Administration | BBA101      |        3 | 40000.00 | Undergraduate |
+|         4 | Master of Computer Applications     | MCA101      |        2 | 60000.00 | Postgraduate  |
+|         5 | Master of Commerce                  | MCOM101     |        2 | 50000.00 | Postgraduate  |
++-----------+-------------------------------------+-------------+----------+----------+---------------+
+5 rows in set (0.01 sec)
+
+mysql> desc courses;
++--------------+---------------+------+-----+---------+----------------+
+| Field        | Type          | Null | Key | Default | Extra          |
++--------------+---------------+------+-----+---------+----------------+
+| course_id    | int           | NO   | PRI | NULL    | auto_increment |
+| course_name  | varchar(100)  | NO   |     | NULL    |                |
+| course_code  | varchar(20)   | YES  | UNI | NULL    |                |
+| duration     | int           | YES  |     | NULL    |                |
+| fees         | decimal(10,2) | YES  |     | NULL    |                |
+| course_level | varchar(30)   | YES  |     | NULL    |                |
++--------------+---------------+------+-----+---------+----------------+
+6 rows in set (0.02 sec)

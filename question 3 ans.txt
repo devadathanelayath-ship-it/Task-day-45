@@ -1,0 +1,32 @@
+mysql> use college_db;
+Database changed
+mysql> create Table enrollments(enrollment_id Int primary key auto_increment,student_id Int,course_id Int,enrollment_date Date NOT NULL,status varchar(20) Default 'Active', foreign key(student_id)References students(student_id),foreign key(course_id)References courses(course_id));
+Query OK, 0 rows affected (0.09 sec)
+mysql> INSERT INTO enrollments
+    -> (student_id, course_id, enrollment_date, status)
+    -> VALUES
+    -> (1, 1, '2026-01-10', 'Active'),
+    -> (2, 2, '2026-01-12', 'Active'),
+    -> (3, 3, '2026-01-15', 'Active'),
+    -> (4, 1, '2026-01-18', 'Active'),
+    -> (5, 4, '2026-01-20', 'Active');
+Query OK, 5 rows affected (0.03 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from enrollments;
++---------------+------------+-----------+-----------------+--------+
+| enrollment_id | student_id | course_id | enrollment_date | status |
++---------------+------------+-----------+-----------------+--------+
+|             1 |          1 |         1 | 2026-01-10      | Active |
+|             2 |          2 |         2 | 2026-01-12      | Active |
+|             3 |          3 |         3 | 2026-01-15      | Active |
+|             4 |          4 |         1 | 2026-01-18      | Active |
+|             5 |          5 |         4 | 2026-01-20      | Active |
++---------------+------------+-----------+-----------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> INSERT INTO enrollments
+    -> (student_id, course_id, enrollment_date)
+    -> VALUES
+    -> (100, 1, '2026-02-01');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`college_db`.`enrollments`, CONSTRAINT `enrollments_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`student_id`))

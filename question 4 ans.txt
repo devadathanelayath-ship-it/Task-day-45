@@ -1,0 +1,27 @@
+mysql> use college_db;
+Database changed
+mysql> select * from students;
++------------+--------------+------------------+------+---------------+--------+--------------+
+| student_id | student_name | email            | age  | gender        | course | city         |
++------------+--------------+------------------+------+---------------+--------+--------------+
+|          1 | Arun         | arun@gmail.com   |   22 | Male          | BCA    | Kochi        |
+|          2 | Anu          | anu@gmail.com    |   21 | Female        | BCom   | Calicut      |
+|          3 | Rahul        | rahul@gmail.com  |   23 | Male          | BBA    | Trivandrum   |
+|          4 | Meera        | meera@gmail.com  |   20 | Female        | BSc    | Kannur       |
+|          5 | Vishnu       | vishnu@gmail.com |   24 | Male          | BCA    | Thrissur     |
+|          7 | Sneha        | sneha@gmail.com  |   22 | Not Specified | BCom   | Not Provided |
++------------+--------------+------------------+------+---------------+--------+--------------+
+6 rows in set (0.01 sec)
+
+mysql> select student_name,email from students;
++--------------+------------------+
+| student_name | email            |
++--------------+------------------+
+| Arun         | arun@gmail.com   |
+| Anu          | anu@gmail.com    |
+| Rahul        | rahul@gmail.com  |
+| Meera        | meera@gmail.com  |
+| Vishnu       | vishnu@gmail.com |
+| Sneha        | sneha@gmail.com  |
++--------------+------------------+
+6 rows in set (0.00 sec)

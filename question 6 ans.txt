@@ -1,0 +1,94 @@
+mysql> use college_db;
+Database changed
+mysql> CREATE TABLE Customers (
+    ->     CustomerID VARCHAR(10) PRIMARY KEY,
+    ->     CustomerName VARCHAR(50) NOT NULL,
+    ->     City VARCHAR(50)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql>
+mysql> CREATE TABLE Products (
+    ->     ProductID VARCHAR(10) PRIMARY KEY,
+    ->     ProductName VARCHAR(50) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE Orders (
+    ->     OrderID INT PRIMARY KEY,
+    ->     CustomerID VARCHAR(10),
+    ->     FOREIGN KEY (CustomerID)
+    ->     REFERENCES Customers(CustomerID)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> CREATE TABLE OrderDetails (
+    ->     OrderDetailID INT PRIMARY KEY AUTO_INCREMENT,
+    ->     OrderID INT,
+    ->     ProductID VARCHAR(10),
+    ->     Amount DECIMAL(10,2),
+    ->     FOREIGN KEY (OrderID)
+    ->     REFERENCES Orders(OrderID),
+    ->     FOREIGN KEY (ProductID)
+    ->     REFERENCES Products(ProductID)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO Customers VALUES
+    -> ('C01', 'Arun', 'Kochi'),
+    -> ('C02', 'Anu', 'Calicut'),
+    -> ('C03', 'Rahul', 'Trivandrum');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Products VALUES
+    -> ('P01', 'Laptop'),
+    -> ('P02', 'Mobile'),
+    -> ('P03', 'Mouse'),
+    -> ('P04', 'Keyboard');
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Orders VALUES
+    -> (101, 'C01'),
+    -> (102, 'C02'),
+    -> (103, 'C01'),
+    -> (104, 'C03'),
+    -> (105, 'C02');
+Query OK, 5 rows affected (0.00 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO OrderDetails
+    -> (OrderID, ProductID, Amount)
+    -> VALUES
+    -> (101, 'P01', 50000),
+    -> (102, 'P02', 30000),
+    -> (103, 'P03', 1000),
+    -> (104, 'P01', 50000),
+    -> (105, 'P04', 2000);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT
+    ->     o.OrderID,
+    ->     c.CustomerName,
+    ->     p.ProductName AS Product,
+    ->     c.City,
+    ->     od.Amount
+    -> FROM Orders o
+    -> JOIN Customers c
+    ->     ON o.CustomerID = c.CustomerID
+    -> JOIN OrderDetails od
+    ->     ON o.OrderID = od.OrderID
+    -> JOIN Products p
+    ->     ON od.ProductID = p.ProductID;
++---------+--------------+----------+------------+----------+
+| OrderID | CustomerName | Product  | City       | Amount   |
++---------+--------------+----------+------------+----------+
+|     101 | Arun         | Laptop   | Kochi      | 50000.00 |
+|     103 | Arun         | Mouse    | Kochi      |  1000.00 |
+|     102 | Anu          | Mobile   | Calicut    | 30000.00 |
+|     105 | Anu          | Keyboard | Calicut    |  2000.00 |
+|     104 | Rahul        | Laptop   | Trivandrum | 50000.00 |
++---------+--------------+----------+------------+----------+
+5 rows in set (0.00 sec)
